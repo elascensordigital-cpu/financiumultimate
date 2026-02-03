@@ -1,41 +1,25 @@
 {
-  "name": "Financium",
+  "name": "Financium Ultimate",
   "short_name": "Financium",
-  "id": "/Financium/",
-  "start_url": "/Financium/",
-  "scope": "/Financium/",
+  "description": "Financium Ultimate: Presente, Archivo, Previsión, Ahorro y Deudas.",
+  "id": "/financiumultimate/",
+  "start_url": "/financiumultimate/",
+  "scope": "/financiumultimate/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#eaf2ff",
   "theme_color": "#134a9e",
-  "description": "Financium: Presente, Archivo, Previsión, Ahorro y Deudas.",
   "lang": "es-ES",
-  "dir": "ltr",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/Financium/icon-192.png",
+      "src": "/financiumultimate/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
-      "src": "/Financium/icon-192-maskable.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/Financium/icon-512.png",
+      "src": "/financiumultimate/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/Financium/icon-512-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/png"
     }
   ]
 }
