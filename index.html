@@ -9,10 +9,6 @@
   <meta name="theme-color" content="#134a9e">
   <meta name="description" content="Financium Ultimate: Presente, Archivo, Previsión, Ahorro y Deudas.">
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Financium">
-  <link rel="apple-touch-icon" href="./icon-192.png">
-
   <style>
     :root{
       --blue-900:#0b2a5a;
@@ -23,8 +19,12 @@
       --border:#dbe6ff;
       --card:#ffffff;
       --yellow:#ffd23f;
-      --coral:#ff6f61;
+
+      --coral-bg: rgba(255,111,97,.18);
+      --coral-bd: rgba(255,111,97,.35);
+      --coral-tx: #7a1f17;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -56,6 +56,7 @@
       border-radius: 12px;
       background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.18);
+      display:block;
     }
     .top-actions{
       display:flex;
@@ -85,7 +86,6 @@
     }
     .btn:hover{ background: rgba(255,255,255,.22); }
     .btn:active{ transform: translateY(1px); }
-    .btn.secondary{ background: rgba(255,255,255,.10); }
     .btn.primary{ background: #ffffff; color: var(--blue-900); }
 
     .backArrow{
@@ -107,7 +107,7 @@
     .backArrow:hover{ filter: brightness(1.03); }
     .backArrow:active{ transform: translateY(1px); }
 
-    /* ===== HOME GRID ===== */
+    /* HOME GRID */
     .home-grid{
       display:grid;
       grid-template-columns: repeat(5, minmax(0,1fr));
@@ -129,6 +129,7 @@
       align-items:center;
       cursor:pointer;
       transition: transform .08s ease, box-shadow .15s ease;
+      user-select:none;
     }
     .tile:hover{ transform: translateY(-1px); box-shadow: 0 16px 28px rgba(19,74,158,.14); }
 
@@ -138,16 +139,15 @@
       border-radius: 22px;
       background: var(--blue-100);
       padding: 12px;
+      display:block;
     }
     .tile strong{ font-size: 20px; color: var(--blue-900); font-weight: 1000; }
 
-    /* ✅ FIX laptop: tiles compactos y centrados */
     @media (min-width: 900px) {
       main{ max-width: 1200px; }
       .home-grid{
         grid-template-columns: repeat(5, minmax(180px, 1fr));
         gap: 16px;
-        align-items: stretch;
       }
       .tile{
         flex-direction: column;
@@ -167,9 +167,6 @@
         line-height: 1.1;
       }
     }
-    @media (min-width: 1300px){
-      main{ max-width: 1280px; }
-    }
 
     .page{ display:none; }
     .page.active{ display:block; }
@@ -185,6 +182,7 @@
     .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
     .row > * { flex: 1; min-width: 150px; }
     label{ display:block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 800; }
+
     input, select, textarea{
       width:100%;
       padding: 11px 12px;
@@ -246,6 +244,22 @@
     .iconBtn.danger:hover{ background: rgba(231,76,60,.12); border-color: rgba(231,76,60,.25); }
     .iconBtn.coin:hover{ background: rgba(46,204,113,.14); border-color: rgba(46,204,113,.25); }
 
+    .summaryBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: 0 10px 18px rgba(11,42,90,.06);
+      margin-bottom: 12px;
+    }
+    .summaryBar .title{ font-weight:1000; color: var(--blue-900); font-size: 14px; }
+    .summaryBar .value{ font-weight:1000; font-variant-numeric: tabular-nums; color: #0f172a; font-size: 14px; }
+
     details.archive{
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -265,33 +279,6 @@
     details.archive summary::-webkit-details-marker{ display:none; }
     .archiveTitle{ display:flex; align-items:center; gap:10px; min-width:0; flex:1; }
     .archiveTitle span{ overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
-
-    .spacer{ height: 10px; }
-
-    .summaryBar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      border: 1px solid var(--border);
-      background: #fff;
-      border-radius: 16px;
-      padding: 10px 12px;
-      box-shadow: 0 10px 18px rgba(11,42,90,.06);
-    }
-    .summaryBar .title{
-      font-weight:1000;
-      color: var(--blue-900);
-      font-size: 14px;
-    }
-    .summaryBar .value{
-      font-weight:1000;
-      font-variant-numeric: tabular-nums;
-      color: #0f172a;
-      font-size: 14px;
-    }
-
     .archiveChk{
       display:inline-flex;
       align-items:center;
@@ -345,7 +332,7 @@
       white-space:nowrap;
     }
 
-    /* ===== Forecast ===== */
+    /* PREVISION */
     .forecast-header{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom: 12px; flex-wrap:wrap; }
     .yearBox{ display:flex; flex-direction:column; gap:6px; }
     .yearTitle{ font-weight:1000; color:var(--blue-900); font-size:16px; }
@@ -366,7 +353,7 @@
     .monthTools button{ border:1px solid rgba(0,0,0,.10); background: rgba(255,255,255,.80); border-radius: 10px; padding: 6px 8px; cursor:pointer; font-weight: 900; }
     .monthTools button:active{ transform: translateY(1px); }
 
-    /* ===== DEUDAS ===== */
+    /* DEUDAS */
     .sectionCard{
       border: 1px solid var(--border);
       border-radius: 18px;
@@ -385,13 +372,13 @@
     .sectionCard .t{ font-weight:1000; color: var(--blue-900); }
     .sectionCard .s{ font-weight:900; color:#111827; opacity:.8; font-size:12px; }
 
-    .debtCompact{
+    details.debtCompact{
       border: 1px solid var(--border);
       border-radius: 16px;
       background:#fff;
       padding: 10px 12px;
     }
-    .debtCompact summary{
+    details.debtCompact summary{
       cursor:pointer;
       list-style:none;
       display:flex;
@@ -401,25 +388,142 @@
       font-weight:1000;
       color: var(--blue-900);
     }
-    .debtCompact summary::-webkit-details-marker{ display:none; }
-    .debtRowLeft{ min-width:0; flex:1; display:flex; flex-direction:column; gap:6px; }
-    .debtName{ overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight:1000; }
+    details.debtCompact summary::-webkit-details-marker{ display:none; }
 
+    .debtRowLeft{ min-width:0; flex:1; display:flex; flex-direction:column; gap:6px; }
+    .debtName{ overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size: 18px; font-weight: 1000; }
+
+    .debtLine{
+      font-size:12px;
+      font-weight:900;
+      color:#111827;
+      opacity:.95;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
     .tag{
       border:1px solid var(--border);
       background:#f3f7ff;
       border-radius:999px;
-      padding: 6px 10px;
+      padding: 5px 10px;
       white-space:nowrap;
-      font-size:12px;
-      font-weight:1000;
     }
 
-    /* ✅ SOLO “Queda” en coral */
-    .tag.remaining{
-      background: rgba(255,111,97,.18);
-      border: 1px solid rgba(255,111,97,.35);
-      color: #7a1f17;
+    .debtLine .total,
+    .debtLine .payments{ display:none !important; }
+
+    .debtLine .remaining{
+      background: var(--coral-bg);
+      border: 1px solid var(--coral-bd);
+      color: var(--coral-tx);
+      font-weight: 1000;
+    }
+
+    .paidCompact{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 12px; background: #fff;
+    }
+    .paidCompact .left{ min-width: 0; flex: 1; display:flex; flex-direction:column; gap:4px; }
+    .paidCompact .name{ font-weight: 1000; color: var(--blue-900); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .paidCompact .small{ font-weight: 900; font-size: 12px; color: #111827; opacity: .9; display:flex; gap:8px; flex-wrap:wrap; }
+    .paidCompact .small span{ background:#f3f7ff; border:1px solid var(--border); border-radius:999px; padding: 4px 8px; }
+
+    /* ===== AHORRO (glamour) ===== */
+    #pageSavings .panel{
+      background: radial-gradient(1200px 380px at 20% 0%, rgba(255,214,102,.45), transparent 60%),
+                  radial-gradient(900px 320px at 80% 10%, rgba(255,183,77,.32), transparent 60%),
+                  linear-gradient(180deg, #fff8d6, #fffdf3 55%, #ffffff);
+      border: 1px solid rgba(255, 193, 7, .35);
+      box-shadow: 0 18px 40px rgba(180,120,10,.10);
+    }
+
+    .goldTotalWrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 14px 10px;
+      margin-bottom: 10px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.55));
+      border: 1px solid rgba(255,193,7,.30);
+      box-shadow: 0 14px 26px rgba(180,120,10,.12);
+      position: relative;
+      overflow:hidden;
+    }
+    .goldTotalWrap::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.55), transparent 55%),
+                  radial-gradient(circle at 80% 30%, rgba(255,255,255,.35), transparent 60%);
+      pointer-events:none;
+    }
+
+    .goldTitle{
+      font-weight: 1000;
+      font-size: 14px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(122,75,0,.85);
+      margin-bottom: 4px;
+      text-align:center;
+    }
+
+    .goldAmount{
+      font-weight: 1000;
+      font-size: clamp(30px, 4.2vw, 46px);
+      line-height: 1.05;
+      font-variant-numeric: tabular-nums;
+      text-align:center;
+
+      background: linear-gradient(180deg, #fff7c7 0%, #ffdd73 20%, #caa24c 55%, #fff1b0 85%, #a7771d 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+
+      text-shadow:
+        0 2px 0 rgba(255,255,255,.55),
+        0 10px 22px rgba(160, 100, 10, .22);
+
+      position:relative;
+      padding: 4px 10px 2px;
+    }
+
+    .goldAmount::after{
+      content:"✦";
+      position:absolute;
+      right:-6px;
+      top:-10px;
+      font-size: 18px;
+      color: rgba(255,215,100,.9);
+      text-shadow: 0 6px 18px rgba(180,120,10,.35);
+    }
+
+    .goldOrnament{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin-top: 6px;
+      opacity: .9;
+    }
+    .goldOrnament span{
+      height:1px;
+      width: 78px;
+      background: linear-gradient(90deg, transparent, rgba(167,119,29,.75), transparent);
+    }
+    .goldOrnament i{
+      font-style: normal;
+      color: rgba(167,119,29,.8);
+      font-weight: 1000;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 520px){
+      .goldOrnament span{ width: 56px; }
     }
 
     /* Modal */
@@ -450,7 +554,6 @@
       margin-bottom: 10px;
     }
     .modalHeader h2{ margin: 0; font-size: 16px; color: var(--blue-900); font-weight: 1000; }
-    .modalBody{ margin-top: 8px; }
     .modalActions{
       display:flex;
       justify-content:flex-end;
@@ -486,81 +589,8 @@
       user-select:none;
       padding:0;
     }
+
     .hint{ font-size:12px; color: var(--muted); margin-top:6px; }
-
-    /* ===== AHORRO (wealthy / amarillo) ===== */
-    #pageSavings .panel{
-      background: linear-gradient(180deg, #fff6cc, #fffdf2 55%, #ffffff);
-      border: 1px solid rgba(255, 193, 7, .35);
-      box-shadow: 0 18px 40px rgba(180,120,10,.10);
-    }
-    #pageSavings .summaryBar{
-      background: rgba(255,255,255,.75);
-      border: 1px solid rgba(255, 193, 7, .35);
-    }
-    #pageSavings .value{
-      color: #7a4b00;
-    }
-
-    .savingsScene{
-      margin-top: 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,193,7,.28);
-      background: linear-gradient(180deg, rgba(255,232,153,.75), rgba(255,255,255,.35));
-      overflow:hidden;
-      position:relative;
-      height: 150px;
-      box-shadow: 0 14px 28px rgba(180,120,10,.08);
-    }
-    .skyline{
-      position:absolute;
-      left:0; right:0; bottom:0;
-      height: 78px;
-      display:flex;
-      gap:10px;
-      padding: 0 14px 10px;
-      align-items:flex-end;
-      opacity:.92;
-    }
-    .skyline .b{
-      width: 22%;
-      border-radius: 10px 10px 6px 6px;
-      background: linear-gradient(180deg, rgba(11,42,90,.88), rgba(11,42,90,.55));
-      border: 1px solid rgba(255,255,255,.18);
-      position:relative;
-      overflow:hidden;
-    }
-    .skyline .b:before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.22) 0 2px, transparent 3px) 0 0/24px 22px,
-        radial-gradient(circle at 60% 55%, rgba(255,255,255,.16) 0 2px, transparent 3px) 0 0/28px 26px;
-      opacity:.65;
-    }
-    .skyline .b1{ height: 48px; }
-    .skyline .b2{ height: 68px; }
-    .skyline .b3{ height: 56px; }
-    .skyline .b4{ height: 74px; }
-    .skyline .b5{ height: 44px; }
-
-    .coinLayer{
-      position:absolute;
-      left:0; right:0; top:0; bottom:0;
-      padding: 12px 14px 80px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-content:flex-start;
-    }
-    .coin{
-      width: 22px; height: 22px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fff6b7, #f7c948 55%, #d39a00);
-      border: 1px solid rgba(122,75,0,.35);
-      box-shadow: 0 6px 12px rgba(180,120,10,.18);
-    }
   </style>
 </head>
 
@@ -572,8 +602,8 @@
     </div>
 
     <div class="top-actions">
-      <button id="btnShareBackup" class="btn secondary" title="Compartir o descargar tu backup">📤 Backup</button>
-      <button id="btnImportBackup" class="btn secondary" title="Importar un backup">📥 Importar</button>
+      <button id="btnShareBackup" class="btn" title="Backup">📤 Backup</button>
+      <button id="btnImportBackup" class="btn" title="Importar">📥 Importar</button>
       <input id="fileImportBackup" type="file" accept="application/json" style="display:none">
 
       <button id="btnBackHome" class="backArrow" style="display:none" title="Volver">⬅️</button>
@@ -586,27 +616,22 @@
   <!-- HOME -->
   <section id="pageHome" class="page active">
     <div class="home-grid">
-      <!-- ✅ ORDEN: Presente, Previsión, Ahorro, Deudas, Archivo -->
       <div class="tile" data-nav="present">
         <img src="./presente.png" alt="Presente" onerror="this.style.display='none'">
         <strong>Presente</strong>
       </div>
-
       <div class="tile" data-nav="forecast">
         <img src="./prevision.png" alt="Previsión" onerror="this.style.display='none'">
         <strong>Previsión</strong>
       </div>
-
       <div class="tile" data-nav="savings">
         <img src="./ahorro.png" alt="Ahorro" onerror="this.style.display='none'">
         <strong>Ahorro</strong>
       </div>
-
       <div class="tile" data-nav="debts">
         <img src="./deudas.png" alt="Deudas" onerror="this.style.display='none'">
         <strong>Deudas</strong>
       </div>
-
       <div class="tile" data-nav="archive">
         <img src="./archivo.png" alt="Archivo" onerror="this.style.display='none'">
         <strong>Archivo</strong>
@@ -617,7 +642,7 @@
   <!-- PRESENT -->
   <section id="pagePresent" class="page">
     <div class="panel">
-      <div class="summaryBar" style="margin-bottom:12px;">
+      <div class="summaryBar">
         <div class="title">Balance</div>
         <div class="value" id="presentBalance">0,00 €</div>
       </div>
@@ -649,76 +674,12 @@
     </div>
   </section>
 
-  <!-- AHORRO -->
-  <section id="pageSavings" class="page">
-    <div class="panel">
-      <div class="summaryBar">
-        <div class="title">Total acumulado</div>
-        <div class="value" id="savingsTotal">0,00 €</div>
-      </div>
-
-      <!-- ✅ Skyline + monedas simbólicas -->
-      <div id="savingsScene" class="savingsScene" aria-label="Progreso de ahorro">
-        <div class="skyline">
-          <div class="b b1"></div>
-          <div class="b b2"></div>
-          <div class="b b3"></div>
-          <div class="b b4"></div>
-          <div class="b b5"></div>
-        </div>
-        <div id="coinLayer" class="coinLayer"></div>
-      </div>
-
-      <div class="list" id="savingsList"></div>
-      <div class="spacer"></div>
-      <div class="actions">
-        <button id="btnClearSavings" class="btn light">🧹 Limpiar</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ARCHIVE -->
-  <section id="pageArchive" class="page">
-    <div class="panel">
-      <div class="summaryBar" style="margin-bottom:12px;">
-        <div class="title">Archivo</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center;">
-          <button id="btnGroupPuzzle" class="puzzleBtn" title="Agrupar seleccionados">🧩</button>
-        </div>
-      </div>
-
-      <div class="list" id="archiveGroupsList"></div>
-      <div class="spacer"></div>
-      <div class="list" id="archiveList"></div>
-
-      <div class="spacer"></div>
-
-      <details class="archive">
-        <summary>
-          <div class="archiveTitle"><span>Papelera</span></div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <button id="btnTrashWipeAll" class="iconBtn" title="Borrar definitivamente todo">🧽</button>
-          </div>
-        </summary>
-        <div class="list" id="trashList" style="margin-top:10px;"></div>
-      </details>
-
-      <div class="spacer"></div>
-
-      <div class="actions">
-        <button id="btnExport" class="btn light">⬇️ Exportar</button>
-        <button id="btnImport" class="btn light">⬆️ Importar</button>
-      </div>
-      <input id="importFile" type="file" accept="application/json" style="display:none">
-    </div>
-  </section>
-
   <!-- FORECAST -->
   <section id="pageForecast" class="page">
     <div class="panel">
       <div class="forecast-header">
         <div class="yearBox">
-          <div class="yearTitle"><span id="yearLabel"></span></div>
+          <div class="yearTitle" id="yearLabel"></div>
           <div class="yearBalance">Balance anual: <span id="yearBalance"></span></div>
         </div>
       </div>
@@ -726,20 +687,18 @@
     </div>
   </section>
 
-  <!-- FORECAST MONTH DETAIL -->
+  <!-- FORECAST MONTH -->
   <section id="pageForecastMonth" class="page">
     <div class="panel">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap;">
         <div style="font-weight:1000;color:var(--blue-900);font-size:16px" id="monthTitle"></div>
         <div style="display:flex;gap:10px;align-items:center;">
-          <button id="btnMonthColor" class="btn" style="background:#fff;color:var(--blue-900);border:1px solid var(--border);">🎨 Color</button>
-          <button id="btnBackForecast" class="btn" style="background:#fff;color:var(--blue-900);border:1px solid var(--border);">⬅️</button>
+          <button id="btnMonthColor" class="btn primary" style="border:1px solid var(--border);">🎨 Color</button>
+          <button id="btnBackForecast" class="btn primary" style="border:1px solid var(--border);">⬅️</button>
         </div>
       </div>
 
-      <div class="spacer"></div>
-
-      <div class="row">
+      <div class="row" style="margin-top:12px;">
         <div>
           <label for="fAmount">Cantidad</label>
           <input id="fAmount" type="number" step="0.01" inputmode="decimal" placeholder="0,00" />
@@ -766,10 +725,1650 @@
     </div>
   </section>
 
-  <!-- DEUDAS -->
+  <!-- SAVINGS -->
+  <section id="pageSavings" class="page">
+    <div class="panel">
+      <!-- TOTAL GLAMOUR -->
+      <div class="goldTotalWrap">
+        <div style="position:relative;z-index:1;text-align:center;">
+          <div class="goldTitle">Total acumulado</div>
+          <div class="goldAmount" id="savingsTotal">0,00 €</div>
+         
+      <div class="list" id="savingsList"></div>
+
+      <div class="actions">
+        <button id="btnClearSavings" class="btn light">🧹 Limpiar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEBTS -->
   <section id="pageDebts" class="page">
     <div class="panel">
-
-      <!-- HUB -->
       <div id="debtsHub">
-        <div class="list" style="margin
+        <div class="list" style="margin-top:0;">
+          <div class="sectionCard" id="goNewDebt">
+            <div class="left">
+              <div class="t">Nueva deuda</div>
+              <div class="s">Total, entidad y nota</div>
+            </div>
+            <div>➕</div>
+          </div>
+
+          <div class="sectionCard" id="goActiveDebts">
+            <div class="left">
+              <div class="t">Deudas activas</div>
+              <div class="s" id="activeCount">0 activas</div>
+            </div>
+            <div>📌</div>
+          </div>
+
+          <div class="sectionCard" id="goPaidDebts">
+            <div class="left">
+              <div class="t">Deudas ya pagadas</div>
+              <div class="s" id="paidCount">0 pagadas</div>
+            </div>
+            <div>✅</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="debtsNew" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+          <div style="font-weight:1000;color:var(--blue-900);">Nueva deuda</div>
+          <button class="iconBtn" id="backDebtsFromNew" title="Volver">⬅️</button>
+        </div>
+
+        <div class="row" style="margin-top:12px;">
+          <div>
+            <label for="dEntity">Persona / Entidad</label>
+            <input id="dEntity" type="text" placeholder="Ej: Banco, María..." />
+          </div>
+          <div>
+            <label for="dTotal">Importe total</label>
+            <input id="dTotal" type="number" step="0.01" inputmode="decimal" placeholder="0,00" />
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <label for="dNote">Nota / Asunto</label>
+          <textarea id="dNote" placeholder="Ej: préstamo coche, acuerdo, etc."></textarea>
+        </div>
+
+        <div class="actions">
+          <button id="btnAddDebt" class="btn">➕ Guardar deuda</button>
+        </div>
+      </div>
+
+      <div id="debtsActive" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+          <div style="font-weight:1000;color:var(--blue-900);">Deudas activas</div>
+          <button class="iconBtn" id="backDebtsFromActive" title="Volver">⬅️</button>
+        </div>
+
+        <div class="row" style="margin-top:12px;">
+          <div style="flex:2;min-width:220px;">
+            <label for="debtSearch">Buscar</label>
+            <input id="debtSearch" type="text" placeholder="Escribe el nombre..." />
+          </div>
+          <div style="flex:1;min-width:200px;">
+            <label for="debtSort">Orden</label>
+            <select id="debtSort">
+              <option value="manual">Manual</option>
+              <option value="az">Alfabético A→Z</option>
+              <option value="total_desc">Mayor total</option>
+              <option value="total_asc">Menor total</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="list" id="debtsActiveList"></div>
+      </div>
+
+      <div id="debtsPaid" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+          <div style="font-weight:1000;color:var(--blue-900);">Deudas ya pagadas</div>
+          <button class="iconBtn" id="backDebtsFromPaid" title="Volver">⬅️</button>
+        </div>
+
+        <div class="list" id="debtsPaidList" style="margin-top:12px;"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ARCHIVE -->
+  <section id="pageArchive" class="page">
+    <div class="panel">
+      <div class="summaryBar">
+        <div class="title">Archivo</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center;">
+          <button id="btnGroupPuzzle" class="puzzleBtn" title="Agrupar seleccionados">🧩</button>
+        </div>
+      </div>
+
+      <div class="list" id="archiveGroupsList"></div>
+      <div class="list" id="archiveList"></div>
+
+      <details class="archive" style="margin-top:14px;">
+        <summary>
+          <div class="archiveTitle"><span>Papelera</span></div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button id="btnTrashWipeAll" class="iconBtn" title="Borrar definitivamente todo">🧽</button>
+          </div>
+        </summary>
+        <div class="list" id="trashList" style="margin-top:10px;"></div>
+      </details>
+
+      <div class="actions">
+        <button id="btnExport" class="btn light">⬇️ Exportar</button>
+        <button id="btnImport" class="btn light">⬆️ Importar</button>
+      </div>
+      <input id="importFile" type="file" accept="application/json" style="display:none">
+    </div>
+  </section>
+</main>
+
+<!-- MODAL -->
+<div id="modalBackdrop" class="modal-backdrop">
+  <div class="modal">
+    <div class="modalHeader">
+      <h2 id="modalTitle"></h2>
+      <button id="btnModalCloseX" class="iconBtn" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="modalBody"></div>
+    <div class="modalActions">
+      <button id="btnModalCancel" class="btn light">Cancelar</button>
+      <button id="btnModalOk" class="btn">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  window.addEventListener("error", (e) => {
+    console.log("JS ERROR:", e.message);
+  });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(()=>{});
+    });
+  }
+
+  const $ = (id) => document.getElementById(id);
+
+  const fmtEUR = (n) => new Intl.NumberFormat('es-ES', { style:'currency', currency:'EUR' }).format(Number(n||0));
+  const nowISO = () => new Date().toISOString();
+  const todayISODate = () => new Date().toISOString().slice(0,10);
+  const uid = () => Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+  const MONTHS_ES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+  const STORAGE_KEY = "financiumultimate_state_v1";
+
+  function normalizeItem(it){
+    return {
+      id: it.id || uid(),
+      amount: Number(it.amount || 0),
+      concept: String(it.concept || ""),
+      type: (it.type === "expense" ? "expense" : "income"),
+      createdAt: it.createdAt || nowISO()
+    };
+  }
+
+  function normalizeArchive(a){
+    return {
+      id: a.id || uid(),
+      name: String(a.name || "Archivo"),
+      createdAt: a.createdAt || nowISO(),
+      items: (a.items || []).map(normalizeItem)
+    };
+  }
+
+  function normalizeGroup(g){
+    const ids = Array.isArray(g.archiveIds) ? g.archiveIds.map(String) : [];
+    return {
+      id: g.id || uid(),
+      name: String(g.name || "Grupo"),
+      archiveIds: Array.from(new Set(ids)),
+      createdAt: g.createdAt || nowISO()
+    };
+  }
+
+  function normalizeTrash(t){
+    const a = normalizeArchive(t);
+    return { ...a, deletedAt: t.deletedAt || nowISO() };
+  }
+
+  function normalizeDebt(d){
+    const total = Number(d.total || 0);
+    const remaining = Number.isFinite(Number(d.remaining)) ? Number(d.remaining) : total;
+    const payments = Array.isArray(d.payments) ? d.payments.map(p => ({
+      id: p.id || uid(),
+      amount: Number(p.amount || 0),
+      date: String(p.date || ""),
+      createdAt: p.createdAt || nowISO()
+    })) : [];
+    return {
+      id: d.id || uid(),
+      entity: String(d.entity || ""),
+      total,
+      remaining,
+      note: String(d.note || ""),
+      payments,
+      createdAt: d.createdAt || nowISO()
+    };
+  }
+
+  function emptyState(){
+    const year = new Date().getFullYear();
+    return {
+      present: [],
+      savings: [],
+      archives: [],
+      archiveGroups: [],
+      trashArchives: [],
+      forecast: { [year]: {} },
+      monthColors: { [year]: {} },
+      debts: { active: [], paid: [] }
+    };
+  }
+
+  function loadState(){
+    const base = emptyState();
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return base;
+      const s = JSON.parse(raw);
+
+      s.present = Array.isArray(s.present) ? s.present.map(normalizeItem) : [];
+      s.savings = Array.isArray(s.savings) ? s.savings.map(normalizeItem) : [];
+      s.archives = Array.isArray(s.archives) ? s.archives.map(normalizeArchive) : [];
+      s.archiveGroups = Array.isArray(s.archiveGroups) ? s.archiveGroups.map(normalizeGroup) : [];
+      s.trashArchives = Array.isArray(s.trashArchives) ? s.trashArchives.map(normalizeTrash) : [];
+
+      if(!s.debts) s.debts = { active:[], paid:[] };
+      s.debts.active = Array.isArray(s.debts.active) ? s.debts.active.map(normalizeDebt) : [];
+      s.debts.paid = Array.isArray(s.debts.paid) ? s.debts.paid.map(normalizeDebt) : [];
+
+      if(!s.forecast || typeof s.forecast !== "object") s.forecast = base.forecast;
+      if(!s.monthColors || typeof s.monthColors !== "object") s.monthColors = base.monthColors;
+
+      const y = new Date().getFullYear();
+      if(!s.forecast[y]) s.forecast[y] = {};
+      if(!s.monthColors[y]) s.monthColors[y] = {};
+
+      for(const year of Object.keys(s.forecast)){
+        const obj = s.forecast[year] || {};
+        for(const m of Object.keys(obj)){
+          obj[m] = Array.isArray(obj[m]) ? obj[m].map(normalizeItem) : [];
+        }
+        s.forecast[year] = obj;
+      }
+
+      const archiveSet = new Set(s.archives.map(a => a.id));
+      s.archiveGroups.forEach(g => g.archiveIds = g.archiveIds.filter(id => archiveSet.has(id)));
+      s.archiveGroups = s.archiveGroups.filter(g => g.archiveIds.length > 0);
+
+      return s;
+    }catch(e){
+      return base;
+    }
+  }
+
+  let state = loadState();
+  function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+  function computeBalance(items){
+    let income = 0, expense = 0;
+    for(const it of items){
+      const v = Number(it.amount || 0);
+      if(it.type === "income") income += v;
+      else expense += v;
+    }
+    return { income, expense, balance: income - expense };
+  }
+
+  /* ========= MODAL ========= */
+  const modalBackdrop = $("modalBackdrop");
+  const modalTitle = $("modalTitle");
+  const modalBody = $("modalBody");
+  const btnModalOk = $("btnModalOk");
+  const btnModalCancel = $("btnModalCancel");
+  const btnModalCloseX = $("btnModalCloseX");
+
+  let modalOnOk = null;
+
+  function closeModal(){
+    modalBackdrop.classList.remove("show");
+    modalTitle.textContent = "";
+    modalBody.innerHTML = "";
+    modalOnOk = null;
+  }
+
+  function openModal({ title, bodyNode, okText="Guardar", cancelText="Cancelar", onOk }){
+    modalTitle.textContent = title;
+    modalBody.innerHTML = "";
+    modalBody.appendChild(bodyNode);
+    btnModalOk.textContent = okText;
+
+    if(cancelText === ""){
+      btnModalCancel.style.display = "none";
+    }else{
+      btnModalCancel.style.display = "inline-flex";
+      btnModalCancel.textContent = cancelText;
+    }
+
+    modalOnOk = onOk;
+    modalBackdrop.classList.add("show");
+
+    setTimeout(()=>{
+      const f = modalBody.querySelector("input, textarea, select, button");
+      if(f && f.focus) f.focus();
+      if(f && f.select) f.select();
+    }, 0);
+  }
+
+  btnModalCancel.addEventListener("click", closeModal);
+  btnModalCloseX.addEventListener("click", closeModal);
+  modalBackdrop.addEventListener("click", (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+  btnModalOk.addEventListener("click", async ()=>{
+    if(typeof modalOnOk === "function"){
+      const ok = await modalOnOk();
+      if(ok !== false) closeModal();
+    }else closeModal();
+  });
+
+  function openTextModal({ title, initialValue, okText, onOk }){
+    const box = document.createElement("div");
+    box.innerHTML = `<label>Nombre</label>`;
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.value = initialValue || "";
+    box.appendChild(inp);
+
+    openModal({
+      title,
+      bodyNode: box,
+      okText,
+      cancelText: "Cancelar",
+      onOk: ()=>{
+        const v = String(inp.value||"").trim();
+        if(!v){ inp.focus(); return false; }
+        onOk(v);
+        return true;
+      }
+    });
+  }
+
+  /* ========= NAV ========= */
+  const pages = {
+    home: $("pageHome"),
+    present: $("pagePresent"),
+    forecast: $("pageForecast"),
+    forecastMonth: $("pageForecastMonth"),
+    savings: $("pageSavings"),
+    debts: $("pageDebts"),
+    archive: $("pageArchive"),
+  };
+
+  const btnBackHome = $("btnBackHome");
+  const btnArchivarTop = $("btnArchivarTop");
+  let currentForecastMonth = null;
+
+  function setTopButtons(view){
+    btnBackHome.style.display = (view === "home") ? "none" : "inline-flex";
+    btnArchivarTop.style.display = (view === "present") ? "inline-flex" : "none";
+  }
+
+  function showPage(view){
+    Object.values(pages).forEach(p => p.classList.remove("active"));
+    pages[view].classList.add("active");
+    setTopButtons(view);
+
+    if(view === "present") renderPresent();
+    if(view === "savings") renderSavings();
+    if(view === "archive") renderArchive();
+    if(view === "forecast") renderForecast();
+    if(view === "forecastMonth") renderForecastMonth();
+    if(view === "debts") renderDebtsHub();
+  }
+
+  document.querySelectorAll(".tile").forEach(tile=>{
+    tile.addEventListener("click", ()=>{
+      const nav = tile.dataset.nav;
+      if(nav) showPage(nav);
+    });
+  });
+  btnBackHome.addEventListener("click", ()=> showPage("home"));
+
+  /* ========= BACKUP ========= */
+  $("btnImportBackup").addEventListener("click", ()=> $("fileImportBackup").click());
+  $("fileImportBackup").addEventListener("change", async ()=>{
+    const file = $("fileImportBackup").files && $("fileImportBackup").files[0];
+    if(!file) return;
+    try{
+      const text = await file.text();
+      JSON.parse(text);
+      localStorage.setItem(STORAGE_KEY, text);
+      alert("Importado. Se recargará.");
+      location.reload();
+    }catch(e){
+      alert("Archivo inválido.");
+    }finally{
+      $("fileImportBackup").value = "";
+    }
+  });
+
+  $("btnShareBackup").addEventListener("click", async ()=>{
+    const raw = localStorage.getItem(STORAGE_KEY) || JSON.stringify(emptyState());
+    const blob = new Blob([raw], { type:"application/json" });
+    const file = new File([blob], "financium_backup.json", { type:"application/json" });
+
+    try{
+      if(navigator.share && navigator.canShare && navigator.canShare({ files:[file] })){
+        await navigator.share({ files:[file], title:"Financium backup", text:"Backup de Financium" });
+        return;
+      }
+    }catch(e){}
+
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "financium_backup.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  /* ========= MOVIMIENTOS ========= */
+  function renderMovementRow(item, { onRefresh, onDelete, showCoin=false, onCoin=null }){
+    const row = document.createElement("div");
+    row.className = "item";
+
+    const pill = document.createElement("div");
+    pill.className = "pill " + (item.type === "expense" ? "expense" : "income");
+    pill.textContent = item.type === "expense" ? "Gasto" : "Ingreso";
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    const concept = document.createElement("div");
+    concept.className = "concept";
+    concept.textContent = item.concept || "";
+    meta.appendChild(concept);
+
+    const amount = document.createElement("div");
+    amount.className = "amount";
+    amount.textContent = fmtEUR(item.amount);
+
+    row.appendChild(pill);
+    row.appendChild(meta);
+    row.appendChild(amount);
+
+    if(showCoin){
+      const coin = document.createElement("button");
+      coin.className = "iconBtn coin";
+      coin.title = "Pasar a Ahorro";
+      coin.textContent = "🪙";
+      coin.addEventListener("click", ()=> onCoin && onCoin());
+      row.appendChild(coin);
+    }
+
+    const edit = document.createElement("button");
+    edit.className = "iconBtn";
+    edit.title = "Editar";
+    edit.textContent = "✏️";
+    edit.addEventListener("click", ()=> openEditMovementModal(item, onRefresh));
+
+    const del = document.createElement("button");
+    del.className = "iconBtn danger";
+    del.title = "Borrar";
+    del.textContent = "🗑️";
+    del.addEventListener("click", ()=>{
+      const d = document.createElement("div");
+      d.textContent = "¿Seguro?";
+      openModal({
+        title:"Borrar movimiento",
+        bodyNode:d,
+        okText:"Borrar",
+        cancelText:"Cancelar",
+        onOk: ()=>{ onDelete(); return true; }
+      });
+    });
+
+    row.appendChild(edit);
+    row.appendChild(del);
+    return row;
+  }
+
+  function openEditMovementModal(item, onSave){
+    const wrap = document.createElement("div");
+    wrap.className = "row";
+
+    const a = document.createElement("div");
+    a.innerHTML = `<label>Cantidad</label>`;
+    const inpAmount = document.createElement("input");
+    inpAmount.type = "number";
+    inpAmount.step = "0.01";
+    inpAmount.inputMode = "decimal";
+    inpAmount.value = String(item.amount ?? 0);
+    a.appendChild(inpAmount);
+
+    const b = document.createElement("div");
+    b.innerHTML = `<label>Concepto</label>`;
+    const inpConcept = document.createElement("input");
+    inpConcept.type = "text";
+    inpConcept.value = item.concept || "";
+    b.appendChild(inpConcept);
+
+    const c = document.createElement("div");
+    c.innerHTML = `<label>Tipo</label>`;
+    const selType = document.createElement("select");
+    selType.innerHTML = `<option value="income">Ingreso</option><option value="expense">Gasto</option>`;
+    selType.value = item.type || "income";
+    c.appendChild(selType);
+
+    wrap.appendChild(a); wrap.appendChild(b); wrap.appendChild(c);
+
+    openModal({
+      title:"Editar movimiento",
+      bodyNode:wrap,
+      okText:"Guardar",
+      cancelText:"Cancelar",
+      onOk: ()=>{
+        const n = Number(String(inpAmount.value).replace(",", "."));
+        const concept = String(inpConcept.value||"").trim();
+        if(!Number.isFinite(n)){ inpAmount.focus(); return false; }
+        if(!concept){ inpConcept.focus(); return false; }
+        item.amount = n;
+        item.concept = concept;
+        item.type = selType.value;
+        saveState();
+        onSave();
+        return true;
+      }
+    });
+  }
+
+  /* ========= PRESENTE ========= */
+  const presentBalanceEl = $("presentBalance");
+  const pAmount = $("pAmount");
+  const pConcept = $("pConcept");
+  const pType = $("pType");
+  const btnAddPresent = $("btnAddPresent");
+  const btnClearPresent = $("btnClearPresent");
+  const presentList = $("presentList");
+
+  btnAddPresent.addEventListener("click", ()=>{
+    const amount = Number(String(pAmount.value).replace(",", "."));
+    const concept = String(pConcept.value||"").trim();
+    const type = pType.value;
+
+    if(!Number.isFinite(amount) || amount === 0) return;
+    if(!concept) return;
+
+    state.present.unshift(normalizeItem({ amount, concept, type, createdAt: nowISO() }));
+    saveState();
+
+    pAmount.value = "";
+    pConcept.value = "";
+    pType.value = "income";
+    renderPresent();
+  });
+
+  btnClearPresent.addEventListener("click", ()=>{
+    if(!state.present.length) return;
+    const d = document.createElement("div");
+    d.textContent = "¿Borrar todos los movimientos?";
+    openModal({
+      title:"Limpiar",
+      bodyNode:d,
+      okText:"Borrar",
+      cancelText:"Cancelar",
+      onOk: ()=>{ state.present = []; saveState(); renderPresent(); return true; }
+    });
+  });
+
+  function openMoveToSavingsModal(presentItem){
+    const max = Number(presentItem.amount || 0);
+    const box = document.createElement("div");
+    box.innerHTML = `<label>Cantidad a pasar a ahorro</label>`;
+    const inp = document.createElement("input");
+    inp.type = "number";
+    inp.step = "0.01";
+    inp.inputMode = "decimal";
+    inp.max = String(max);
+    inp.value = String(max);
+    box.appendChild(inp);
+
+    openModal({
+      title:"Pasar a Ahorro",
+      bodyNode:box,
+      okText:"Mover",
+      cancelText:"Cancelar",
+      onOk: ()=>{
+        const n = Number(String(inp.value).replace(",", "."));
+        if(!Number.isFinite(n) || n <= 0){ inp.focus(); return false; }
+        if(n > max){ inp.focus(); return false; }
+
+        presentItem.amount = +(max - n).toFixed(2);
+        if(presentItem.amount <= 0.000001){
+          state.present = state.present.filter(x => x.id !== presentItem.id);
+        }
+
+        state.savings.unshift(normalizeItem({
+          amount: +n.toFixed(2),
+          concept: presentItem.concept,
+          type: "income",
+          createdAt: nowISO()
+        }));
+
+        saveState();
+        renderPresent();
+        renderSavings();
+        return true;
+      }
+    });
+  }
+
+  function renderPresent(){
+    const { balance } = computeBalance(state.present);
+    presentBalanceEl.textContent = fmtEUR(balance);
+
+    presentList.innerHTML = "";
+    state.present.forEach(it=>{
+      presentList.appendChild(renderMovementRow(it, {
+        onRefresh: renderPresent,
+        onDelete: ()=>{ state.present = state.present.filter(x => x.id !== it.id); saveState(); renderPresent(); },
+        showCoin: true,
+        onCoin: ()=> openMoveToSavingsModal(it)
+      }));
+    });
+  }
+
+  $("btnArchivarTop").addEventListener("click", ()=>{
+    if(!state.present.length) return;
+    openTextModal({
+      title:"Nombre del archivo",
+      initialValue:"Archivo " + new Date().toLocaleDateString("es-ES"),
+      okText:"Archivar",
+      onOk:(name)=>{
+        state.archives.unshift({ id: uid(), name, createdAt: nowISO(), items: state.present.map(x=>({ ...x })) });
+        state.present = [];
+        saveState();
+        renderPresent();
+        renderArchive();
+      }
+    });
+  });
+
+  /* ========= AHORRO ========= */
+  const savingsList = $("savingsList");
+  const savingsTotalEl = $("savingsTotal");
+
+  $("btnClearSavings").addEventListener("click", ()=>{
+    if(!state.savings.length) return;
+    const d = document.createElement("div");
+    d.textContent = "¿Borrar todos los movimientos de Ahorro?";
+    openModal({
+      title:"Limpiar",
+      bodyNode:d,
+      okText:"Borrar",
+      cancelText:"Cancelar",
+      onOk: ()=>{ state.savings = []; saveState(); renderSavings(); return true; }
+    });
+  });
+
+  function renderSavings(){
+    const total = state.savings.reduce((acc, it)=> acc + Number(it.amount||0), 0);
+    savingsTotalEl.textContent = fmtEUR(total);
+
+    savingsList.innerHTML = "";
+    state.savings.forEach(it=>{
+      savingsList.appendChild(renderMovementRow(it, {
+        onRefresh: renderSavings,
+        onDelete: ()=>{ state.savings = state.savings.filter(x => x.id !== it.id); saveState(); renderSavings(); },
+        showCoin:false
+      }));
+    });
+  }
+
+  /* ========= ARCHIVO + PAPELERA + GRUPOS ========= */
+  const archiveGroupsList = $("archiveGroupsList");
+  const archiveList = $("archiveList");
+  const trashList = $("trashList");
+  const selectedArchiveIds = new Set();
+
+  function groupedIdSet(){
+    const set = new Set();
+    state.archiveGroups.forEach(g => g.archiveIds.forEach(id => set.add(id)));
+    return set;
+  }
+
+  function removeArchiveIdFromGroups(archiveId){
+    state.archiveGroups.forEach(g => g.archiveIds = g.archiveIds.filter(id => id !== archiveId));
+    state.archiveGroups = state.archiveGroups.filter(g => g.archiveIds.length > 0);
+  }
+
+  function moveArchiveToTrash(archive){
+    removeArchiveIdFromGroups(archive.id);
+    state.archives = state.archives.filter(a => a.id !== archive.id);
+    state.trashArchives.unshift({ ...archive, deletedAt: nowISO() });
+    saveState();
+  }
+
+  function permanentlyDeleteTrashArchive(trashId){
+    state.trashArchives = state.trashArchives.filter(t => t.id !== trashId);
+    saveState();
+  }
+
+  $("btnTrashWipeAll").addEventListener("click", ()=>{
+    if(!state.trashArchives.length) return;
+    const d = document.createElement("div");
+    d.textContent = "Esto borrará definitivamente TODO lo de la papelera. ¿Continuar?";
+    openModal({
+      title:"Vaciar papelera",
+      bodyNode:d,
+      okText:"Vaciar",
+      cancelText:"Cancelar",
+      onOk: ()=>{ state.trashArchives = []; saveState(); renderArchive(); return true; }
+    });
+  });
+
+  $("btnGroupPuzzle").addEventListener("click", ()=>{
+    const ids = Array.from(selectedArchiveIds);
+    if(ids.length < 2){
+      const d = document.createElement("div");
+      d.textContent = "Marca al menos 2 archivos.";
+      openModal({ title:"Agrupar", bodyNode:d, okText:"OK", cancelText:"", onOk: ()=>true });
+      return;
+    }
+    openTextModal({
+      title:"Nombre del grupo",
+      initialValue: String(new Date().getFullYear()),
+      okText:"Crear",
+      onOk:(name)=>{
+        state.archiveGroups.unshift({ id: uid(), name, archiveIds: ids, createdAt: nowISO() });
+        selectedArchiveIds.clear();
+        saveState();
+        renderArchive();
+      }
+    });
+  });
+
+  function renderTrash(){
+    trashList.innerHTML = "";
+    if(!state.trashArchives.length){
+      const d = document.createElement("div");
+      d.style.color = "var(--muted)";
+      d.style.fontWeight = "800";
+      d.style.fontSize = "13px";
+      d.textContent = "Vacía";
+      trashList.appendChild(d);
+      return;
+    }
+
+    state.trashArchives.forEach(t=>{
+      const row = document.createElement("div");
+      row.className = "trashRow";
+
+      const left = document.createElement("div");
+      left.style.flex = "1";
+      left.style.minWidth = "0";
+
+      const name = document.createElement("div");
+      name.className = "name";
+      name.textContent = t.name;
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = "Borrado: " + (t.deletedAt || "").slice(0,10);
+
+      left.appendChild(name);
+      left.appendChild(meta);
+
+      const right = document.createElement("div");
+      right.style.display = "flex";
+      right.style.gap = "8px";
+
+      const wipe = document.createElement("button");
+      wipe.className = "iconBtn";
+      wipe.textContent = "🧽";
+      wipe.title = "Borrar definitivo";
+      wipe.addEventListener("click", ()=>{
+        const d = document.createElement("div");
+        d.textContent = `Eliminar "${t.name}" para siempre. ¿Continuar?`;
+        openModal({
+          title:"Borrar definitivo",
+          bodyNode:d,
+          okText:"Borrar",
+          cancelText:"Cancelar",
+          onOk: ()=>{ permanentlyDeleteTrashArchive(t.id); renderArchive(); return true; }
+        });
+      });
+
+      right.appendChild(wipe);
+
+      row.appendChild(left);
+      row.appendChild(right);
+      trashList.appendChild(row);
+    });
+  }
+
+  function renderArchive(){
+    archiveGroupsList.innerHTML = "";
+    archiveList.innerHTML = "";
+
+    const gSet = groupedIdSet();
+
+    state.archiveGroups.forEach(group=>{
+      const det = document.createElement("details");
+      det.className = "archive";
+
+      const sum = document.createElement("summary");
+
+      const left = document.createElement("div");
+      left.className = "archiveTitle";
+      const nameSpan = document.createElement("span");
+      nameSpan.textContent = group.name;
+      left.appendChild(nameSpan);
+
+      const right = document.createElement("div");
+      right.style.display = "flex";
+      right.style.gap = "8px";
+      right.style.alignItems = "center";
+
+      const rename = document.createElement("button");
+      rename.className = "iconBtn";
+      rename.textContent = "✏️";
+      rename.title = "Renombrar grupo";
+      rename.addEventListener("click", (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        openTextModal({
+          title:"Renombrar grupo",
+          initialValue: group.name,
+          okText:"Guardar",
+          onOk:(newName)=>{ group.name = newName; saveState(); renderArchive(); }
+        });
+      });
+
+      const delGroup = document.createElement("button");
+      delGroup.className = "iconBtn danger";
+      delGroup.textContent = "🗑️";
+      delGroup.title = "Eliminar agrupación";
+      delGroup.addEventListener("click", (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        const d = document.createElement("div");
+        d.textContent = `Se eliminará el grupo "${group.name}", pero los archivos seguirán existiendo.`;
+        openModal({
+          title:"Eliminar grupo",
+          bodyNode:d,
+          okText:"Eliminar",
+          cancelText:"Cancelar",
+          onOk: ()=>{
+            state.archiveGroups = state.archiveGroups.filter(g => g.id !== group.id);
+            saveState();
+            renderArchive();
+            return true;
+          }
+        });
+      });
+
+      right.appendChild(rename);
+      right.appendChild(delGroup);
+
+      sum.appendChild(left);
+      sum.appendChild(right);
+      det.appendChild(sum);
+
+      const inner = document.createElement("div");
+      inner.style.marginTop = "10px";
+      inner.style.display = "flex";
+      inner.style.flexDirection = "column";
+      inner.style.gap = "8px";
+
+      group.archiveIds.forEach(aid=>{
+        const arch = state.archives.find(a => a.id === aid);
+        if(!arch) return;
+
+        const aDet = document.createElement("details");
+        aDet.className = "archive";
+
+        const aSum = document.createElement("summary");
+        const aLeft = document.createElement("div");
+        aLeft.className = "archiveTitle";
+        const aName = document.createElement("span");
+        aName.textContent = arch.name;
+        aLeft.appendChild(aName);
+
+        const aRight = document.createElement("div");
+        aRight.style.display = "flex";
+        aRight.style.gap = "8px";
+
+        const aRename = document.createElement("button");
+        aRename.className = "iconBtn";
+        aRename.textContent = "✏️";
+        aRename.title = "Renombrar archivo";
+        aRename.addEventListener("click", (e)=>{
+          e.preventDefault(); e.stopPropagation();
+          openTextModal({
+            title:"Renombrar archivo",
+            initialValue: arch.name,
+            okText:"Guardar",
+            onOk:(newName)=>{ arch.name = newName; saveState(); renderArchive(); }
+          });
+        });
+
+        const aDel = document.createElement("button");
+        aDel.className = "iconBtn danger";
+        aDel.textContent = "🗑️";
+        aDel.title = "Borrar a papelera";
+        aDel.addEventListener("click", (e)=>{
+          e.preventDefault(); e.stopPropagation();
+          const d = document.createElement("div");
+          d.textContent = `¿Borrar "${arch.name}"? Se enviará a la papelera.`;
+          openModal({
+            title:"Borrar archivo",
+            bodyNode:d,
+            okText:"Borrar",
+            cancelText:"Cancelar",
+            onOk: ()=>{ removeArchiveIdFromGroups(arch.id); moveArchiveToTrash(arch); renderArchive(); return true; }
+          });
+        });
+
+        aRight.appendChild(aRename);
+        aRight.appendChild(aDel);
+
+        aSum.appendChild(aLeft);
+        aSum.appendChild(aRight);
+        aDet.appendChild(aSum);
+
+        const itemsWrap = document.createElement("div");
+        itemsWrap.style.marginTop = "10px";
+        itemsWrap.style.display = "flex";
+        itemsWrap.style.flexDirection = "column";
+        itemsWrap.style.gap = "8px";
+
+        (arch.items||[]).forEach(it=>{
+          itemsWrap.appendChild(renderMovementRow(it, {
+            onRefresh: renderArchive,
+            onDelete: ()=>{
+              arch.items = arch.items.filter(x => x.id !== it.id);
+              saveState();
+              renderArchive();
+            }
+          }));
+        });
+
+        aDet.appendChild(itemsWrap);
+        inner.appendChild(aDet);
+      });
+
+      det.appendChild(inner);
+      archiveGroupsList.appendChild(det);
+    });
+
+    state.archives.forEach(arch=>{
+      if(gSet.has(arch.id)) return;
+
+      const det = document.createElement("details");
+      det.className = "archive";
+
+      const sum = document.createElement("summary");
+
+      const left = document.createElement("div");
+      left.className = "archiveTitle";
+
+      const chkWrap = document.createElement("label");
+      chkWrap.className = "archiveChk";
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = selectedArchiveIds.has(arch.id);
+      cb.addEventListener("click", (e)=> e.stopPropagation());
+      cb.addEventListener("change", ()=>{
+        if(cb.checked) selectedArchiveIds.add(arch.id);
+        else selectedArchiveIds.delete(arch.id);
+      });
+      chkWrap.appendChild(cb);
+
+      const nameSpan = document.createElement("span");
+      nameSpan.textContent = arch.name;
+
+      const renameBtn = document.createElement("button");
+      renameBtn.className = "iconBtn";
+      renameBtn.textContent = "✏️";
+      renameBtn.title = "Renombrar";
+      renameBtn.addEventListener("click", (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        openTextModal({
+          title:"Renombrar archivo",
+          initialValue: arch.name,
+          okText:"Guardar",
+          onOk:(newName)=>{ arch.name = newName; saveState(); renderArchive(); }
+        });
+      });
+
+      left.appendChild(chkWrap);
+      left.appendChild(nameSpan);
+      left.appendChild(renameBtn);
+
+      const right = document.createElement("div");
+      const delBtn = document.createElement("button");
+      delBtn.className = "iconBtn danger";
+      delBtn.textContent = "🗑️";
+      delBtn.title = "Borrar a papelera";
+      delBtn.addEventListener("click", (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        const d = document.createElement("div");
+        d.textContent = `¿Borrar "${arch.name}"? Se enviará a la papelera.`;
+        openModal({
+          title:"Borrar archivo",
+          bodyNode:d,
+          okText:"Borrar",
+          cancelText:"Cancelar",
+          onOk: ()=>{ moveArchiveToTrash(arch); renderArchive(); return true; }
+        });
+      });
+      right.appendChild(delBtn);
+
+      sum.appendChild(left);
+      sum.appendChild(right);
+      det.appendChild(sum);
+
+      const inner = document.createElement("div");
+      inner.style.marginTop = "10px";
+      inner.style.display = "flex";
+      inner.style.flexDirection = "column";
+      inner.style.gap = "8px";
+
+      (arch.items||[]).forEach(it=>{
+        inner.appendChild(renderMovementRow(it, {
+          onRefresh: renderArchive,
+          onDelete: ()=>{
+            arch.items = arch.items.filter(x => x.id !== it.id);
+            saveState();
+            renderArchive();
+          }
+        }));
+      });
+
+      det.appendChild(inner);
+      archiveList.appendChild(det);
+    });
+
+    renderTrash();
+  }
+
+  $("btnExport").addEventListener("click", ()=>{
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type:"application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "financium_backup.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  $("btnImport").addEventListener("click", ()=> $("importFile").click());
+  $("importFile").addEventListener("change", async ()=>{
+    const file = $("importFile").files && $("importFile").files[0];
+    if(!file) return;
+    try{
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      const d = document.createElement("div");
+      d.textContent = "Esto reemplaza tus datos. ¿Continuar?";
+      openModal({
+        title:"Importar",
+        bodyNode:d,
+        okText:"Importar",
+        cancelText:"Cancelar",
+        onOk: ()=>{
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+          location.reload();
+          return true;
+        }
+      });
+    }catch(e){}
+    finally{ $("importFile").value = ""; }
+  });
+
+  /* ========= PREVISION ========= */
+  function ensureYearContainers(year){
+    if(!state.forecast[year]) state.forecast[year] = {};
+    if(!state.monthColors[year]) state.monthColors[year] = {};
+  }
+  function getForecastMonthItems(year, monthIndex){
+    ensureYearContainers(year);
+    if(!Array.isArray(state.forecast[year][monthIndex])) state.forecast[year][monthIndex] = [];
+    return state.forecast[year][monthIndex];
+  }
+  function getMonthColor(year, monthIndex){
+    ensureYearContainers(year);
+    return state.monthColors[year][monthIndex] || "#ffffff";
+  }
+  function setMonthColor(year, monthIndex, color){
+    ensureYearContainers(year);
+    state.monthColors[year][monthIndex] = color;
+    saveState();
+  }
+
+  function openColorPicker({ title, onPick }){
+    const box = document.createElement("div");
+    box.innerHTML = `<label>Elige un color</label>`;
+
+    const colors = [
+      {c:"#ffffff", t:"—"},
+      {c:"#eaf2ff", t:"Azul"},
+      {c:"#d1fae5", t:"Verde"},
+      {c:"#fee2e2", t:"Rojo"},
+      {c:"#fef3c7", t:"Amarillo"},
+      {c:"#e9d5ff", t:"Lila"},
+      {c:"#cffafe", t:"Turq"},
+      {c:"#fce7f3", t:"Rosa"},
+      {c:"#e5e7eb", t:"Gris"},
+      {c:"#111827", t:"Negro"}
+    ];
+
+    const grid = document.createElement("div");
+    grid.className = "colorGrid";
+
+    colors.forEach(o=>{
+      const sw = document.createElement("button");
+      sw.type = "button";
+      sw.className = "colorSwatch";
+      sw.style.background = o.c;
+      sw.style.color = (o.c === "#111827") ? "#fff" : "#0b2a5a";
+      sw.textContent = o.t;
+      sw.addEventListener("click", ()=>{
+        onPick(o.c);
+        closeModal();
+      });
+      grid.appendChild(sw);
+    });
+
+    const hint = document.createElement("div");
+    hint.className = "hint";
+    hint.textContent = "Se guarda automáticamente.";
+
+    box.appendChild(grid);
+    box.appendChild(hint);
+
+    openModal({ title, bodyNode: box, okText:"", cancelText:"", onOk: ()=>true });
+  }
+
+  const yearLabel = $("yearLabel");
+  const yearBalanceEl = $("yearBalance");
+  const monthsGrid = $("monthsGrid");
+
+  function renderForecast(){
+    const year = new Date().getFullYear();
+    ensureYearContainers(year);
+
+    yearLabel.textContent = year;
+
+    let annual = 0;
+    for(let m=0; m<12; m++){
+      annual += computeBalance(getForecastMonthItems(year, m)).balance;
+    }
+    yearBalanceEl.textContent = fmtEUR(annual);
+
+    monthsGrid.innerHTML = "";
+    for(let m=0; m<12; m++){
+      const items = getForecastMonthItems(year, m);
+      const { balance } = computeBalance(items);
+
+      const card = document.createElement("div");
+      card.className = "month";
+      card.style.background = getMonthColor(year, m);
+
+      const tools = document.createElement("div");
+      tools.className = "monthTools";
+
+      const paint = document.createElement("button");
+      paint.type = "button";
+      paint.textContent = "🎨";
+      paint.title = "Color del mes";
+      paint.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        openColorPicker({
+          title: `Color: ${MONTHS_ES[m]}`,
+          onPick: (c)=>{ setMonthColor(year, m, c); renderForecast(); }
+        });
+      });
+
+      tools.appendChild(paint);
+      card.appendChild(tools);
+
+      const name = document.createElement("div");
+      name.className = "monthName";
+      name.textContent = MONTHS_ES[m];
+
+      const bal = document.createElement("div");
+      bal.className = "monthBal";
+      bal.textContent = fmtEUR(balance);
+
+      card.appendChild(name);
+      card.appendChild(bal);
+
+      card.addEventListener("click", ()=>{
+        currentForecastMonth = { year, monthIndex: m };
+        showPage("forecastMonth");
+      });
+
+      monthsGrid.appendChild(card);
+    }
+  }
+
+  $("btnBackForecast").addEventListener("click", ()=> showPage("forecast"));
+  $("btnMonthColor").addEventListener("click", ()=>{
+    if(!currentForecastMonth) return;
+    const { year, monthIndex } = currentForecastMonth;
+    openColorPicker({
+      title: `Color: ${MONTHS_ES[monthIndex]}`,
+      onPick: (c)=>{ setMonthColor(year, monthIndex, c); renderForecast(); }
+    });
+  });
+
+  $("btnAddForecast").addEventListener("click", ()=>{
+    if(!currentForecastMonth) return;
+
+    const amount = Number(String($("fAmount").value).replace(",", "."));
+    const concept = String($("fConcept").value||"").trim();
+    const type = $("fType").value;
+
+    if(!Number.isFinite(amount) || amount === 0) return;
+    if(!concept) return;
+
+    const items = getForecastMonthItems(currentForecastMonth.year, currentForecastMonth.monthIndex);
+    items.unshift(normalizeItem({ amount, concept, type, createdAt: nowISO() }));
+    saveState();
+
+    $("fAmount").value=""; $("fConcept").value=""; $("fType").value="income";
+    renderForecastMonth();
+    renderForecast();
+  });
+
+  $("btnClearForecastMonth").addEventListener("click", ()=>{
+    if(!currentForecastMonth) return;
+    const items = getForecastMonthItems(currentForecastMonth.year, currentForecastMonth.monthIndex);
+    if(!items.length) return;
+
+    const d = document.createElement("div");
+    d.textContent = "¿Borrar todos los movimientos del mes?";
+    openModal({
+      title:"Limpiar mes",
+      bodyNode:d,
+      okText:"Borrar",
+      cancelText:"Cancelar",
+      onOk: ()=>{
+        state.forecast[currentForecastMonth.year][currentForecastMonth.monthIndex] = [];
+        saveState();
+        renderForecastMonth();
+        renderForecast();
+        return true;
+      }
+    });
+  });
+
+  function renderForecastMonth(){
+    if(!currentForecastMonth){ showPage("forecast"); return; }
+    const { year, monthIndex } = currentForecastMonth;
+    const items = getForecastMonthItems(year, monthIndex);
+
+    $("monthTitle").textContent = `${MONTHS_ES[monthIndex]} ${year}`;
+
+    const list = $("forecastMonthList");
+    list.innerHTML = "";
+    items.forEach(it=>{
+      list.appendChild(renderMovementRow(it, {
+        onRefresh: ()=>{ saveState(); renderForecastMonth(); renderForecast(); },
+        onDelete: ()=>{ state.forecast[year][monthIndex] = items.filter(x => x.id !== it.id); saveState(); renderForecastMonth(); renderForecast(); },
+      }));
+    });
+  }
+
+  /* ========= DEUDAS ========= */
+  const debtsHub = $("debtsHub");
+  const debtsNew = $("debtsNew");
+  const debtsActive = $("debtsActive");
+  const debtsPaid = $("debtsPaid");
+
+  function showDebtsSection(which){
+    debtsHub.style.display = (which === "hub") ? "block" : "none";
+    debtsNew.style.display = (which === "new") ? "block" : "none";
+    debtsActive.style.display = (which === "active") ? "block" : "none";
+    debtsPaid.style.display = (which === "paid") ? "block" : "none";
+  }
+
+  function renderDebtsHub(){
+    $("activeCount").textContent = `${state.debts.active.length} activas`;
+    $("paidCount").textContent = `${state.debts.paid.length} pagadas`;
+    showDebtsSection("hub");
+  }
+
+  $("goNewDebt").addEventListener("click", ()=> showDebtsSection("new"));
+  $("goActiveDebts").addEventListener("click", ()=>{ showDebtsSection("active"); renderDebtsActive(); });
+  $("goPaidDebts").addEventListener("click", ()=>{ showDebtsSection("paid"); renderDebtsPaid(); });
+
+  $("backDebtsFromNew").addEventListener("click", renderDebtsHub);
+  $("backDebtsFromActive").addEventListener("click", renderDebtsHub);
+  $("backDebtsFromPaid").addEventListener("click", renderDebtsHub);
+
+  $("btnAddDebt").addEventListener("click", ()=>{
+    const entity = String($("dEntity").value||"").trim();
+    const total = Number(String($("dTotal").value).replace(",", "."));
+    const note = String($("dNote").value||"");
+
+    if(!entity) return;
+    if(!Number.isFinite(total) || total <= 0) return;
+
+    state.debts.active.unshift(normalizeDebt({
+      entity,
+      total: +total.toFixed(2),
+      remaining: +total.toFixed(2),
+      note,
+      payments: []
+    }));
+
+    saveState();
+    $("dEntity").value = ""; $("dTotal").value = ""; $("dNote").value = "";
+    renderDebtsHub();
+  });
+
+  function openAddPaymentModal(debt){
+    const box = document.createElement("div");
+    const r = document.createElement("div");
+    r.className = "row";
+
+    const a = document.createElement("div");
+    a.innerHTML = `<label>Cantidad pagada</label>`;
+    const inpAmount = document.createElement("input");
+    inpAmount.type = "number";
+    inpAmount.step = "0.01";
+    inpAmount.inputMode = "decimal";
+    inpAmount.value = String(Math.min(debt.remaining, debt.total) || 0);
+    a.appendChild(inpAmount);
+
+    const b = document.createElement("div");
+    b.innerHTML = `<label>Fecha</label>`;
+    const inpDate = document.createElement("input");
+    inpDate.type = "date";
+    inpDate.value = todayISODate();
+    b.appendChild(inpDate);
+
+    r.appendChild(a); r.appendChild(b);
+    box.appendChild(r);
+
+    openModal({
+      title:"Restar deuda (pago)",
+      bodyNode:box,
+      okText:"Guardar",
+      cancelText:"Cancelar",
+      onOk: ()=>{
+        const amt = Number(String(inpAmount.value).replace(",", "."));
+        const date = String(inpDate.value||"").trim();
+        if(!Number.isFinite(amt) || amt <= 0){ inpAmount.focus(); return false; }
+        if(amt > debt.remaining + 0.000001){ inpAmount.focus(); return false; }
+        if(!date){ inpDate.focus(); return false; }
+
+        debt.payments.unshift({ id: uid(), amount: +amt.toFixed(2), date, createdAt: nowISO() });
+        debt.remaining = +(Math.max(0, debt.remaining - amt)).toFixed(2);
+
+        if(debt.remaining <= 0.000001){
+          state.debts.active = state.debts.active.filter(x => x.id !== debt.id);
+          state.debts.paid.unshift(debt);
+        }
+
+        saveState();
+        renderDebtsActive();
+        renderDebtsHub();
+        return true;
+      }
+    });
+  }
+
+  function moveDebtUp(debtId){
+    const idx = state.debts.active.findIndex(d => d.id === debtId);
+    if(idx <= 0) return;
+    [state.debts.active[idx-1], state.debts.active[idx]] = [state.debts.active[idx], state.debts.active[idx-1]];
+    saveState();
+    renderDebtsActive();
+  }
+  function moveDebtDown(debtId){
+    const idx = state.debts.active.findIndex(d => d.id === debtId);
+    if(idx < 0 || idx >= state.debts.active.length - 1) return;
+    [state.debts.active[idx+1], state.debts.active[idx]] = [state.debts.active[idx], state.debts.active[idx+1]];
+    saveState();
+    renderDebtsActive();
+  }
+
+  function renderDebtsActive(){
+    const q = String($("debtSearch").value || "").trim().toLowerCase();
+    const mode = $("debtSort").value || "manual";
+    let list = state.debts.active.slice();
+
+    if(q) list = list.filter(d => (d.entity||"").toLowerCase().includes(q));
+
+    if(mode === "az"){
+      list.sort((a,b)=> (a.entity||"").localeCompare(b.entity||"", "es", { sensitivity:"base" }));
+    }else if(mode === "total_desc"){
+      list.sort((a,b)=> Number(b.total||0) - Number(a.total||0));
+    }else if(mode === "total_asc"){
+      list.sort((a,b)=> Number(a.total||0) - Number(b.total||0));
+    }
+
+    const container = $("debtsActiveList");
+    container.innerHTML = "";
+
+    if(!list.length){
+      const d = document.createElement("div");
+      d.style.color = "var(--muted)";
+      d.style.fontWeight = "900";
+      d.style.fontSize = "13px";
+      d.textContent = "No hay resultados.";
+      container.appendChild(d);
+      return;
+    }
+
+    list.forEach(debt=>{
+      const det = document.createElement("details");
+      det.className = "debtCompact";
+
+      const sum = document.createElement("summary");
+
+      const left = document.createElement("div");
+      left.className = "debtRowLeft";
+
+      const name = document.createElement("div");
+      name.className = "debtName";
+      name.textContent = debt.entity || "Deuda";
+
+      const line = document.createElement("div");
+      line.className = "debtLine";
+      line.innerHTML = `
+        <span class="tag remaining">Pendiente: ${fmtEUR(debt.remaining)}</span>
+        <span class="tag total">Total: ${fmtEUR(debt.total)}</span>
+        <span class="tag payments">Pagos: ${Array.isArray(debt.payments)? debt.payments.length : 0}</span>
+      `;
+
+      left.appendChild(name);
+      left.appendChild(line);
+
+      const right = document.createElement("div");
+      right.style.display = "flex";
+      right.style.gap = "8px";
+      right.style.alignItems = "center";
+
+      const up = document.createElement("button");
+      up.className = "iconBtn";
+      up.textContent = "↑";
+      up.title = "Subir";
+      up.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); moveDebtUp(debt.id); });
+
+      const down = document.createElement("button");
+      down.className = "iconBtn";
+      down.textContent = "↓";
+      down.title = "Bajar";
+      down.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); moveDebtDown(debt.id); });
+
+      if(mode !== "manual"){ up.style.display="none"; down.style.display="none"; }
+
+      const pencil = document.createElement("button");
+      pencil.className = "iconBtn";
+      pencil.textContent = "✏️";
+      pencil.title = "Restar deuda (pago)";
+      pencil.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); openAddPaymentModal(debt); });
+
+      const del = document.createElement("button");
+      del.className = "iconBtn danger";
+      del.textContent = "🗑️";
+      del.title = "Borrar deuda";
+      del.addEventListener("click", (e)=>{
+        e.preventDefault(); e.stopPropagation();
+        const d = document.createElement("div");
+        d.textContent = "¿Seguro?";
+        openModal({
+          title:"Borrar deuda",
+          bodyNode:d,
+          okText:"Borrar",
+          cancelText:"Cancelar",
+          onOk: ()=>{
+            state.debts.active = state.debts.active.filter(x => x.id !== debt.id);
+            saveState();
+            renderDebtsActive();
+            renderDebtsHub();
+            return true;
+          }
+        });
+      });
+
+      right.appendChild(up);
+      right.appendChild(down);
+      right.appendChild(pencil);
+      right.appendChild(del);
+
+      sum.appendChild(left);
+      sum.appendChild(right);
+      det.appendChild(sum);
+
+      const body = document.createElement("div");
+      body.style.marginTop = "10px";
+
+      if(debt.note && String(debt.note).trim()){
+        const note = document.createElement("div");
+        note.style.fontSize = "12px";
+        note.style.fontWeight = "900";
+        note.style.opacity = ".9";
+        note.style.marginBottom = "10px";
+        note.textContent = debt.note;
+        body.appendChild(note);
+      }
+
+      const recap = document.createElement("div");
+      recap.style.display = "flex";
+      recap.style.gap = "8px";
+      recap.style.flexWrap = "wrap";
+
+      const t1 = document.createElement("span");
+      t1.className = "tag remaining";
+      t1.textContent = `Pendiente: ${fmtEUR(debt.remaining)}`;
+
+      const t2 = document.createElement("span");
+      t2.className = "tag";
+      t2.textContent = `Total: ${fmtEUR(debt.total)}`;
+
+      recap.appendChild(t1);
+      recap.appendChild(t2);
+
+      body.appendChild(recap);
+      det.appendChild(body);
+
+      container.appendChild(det);
+    });
+  }
+
+  $("debtSearch").addEventListener("input", renderDebtsActive);
+  $("debtSort").addEventListener("change", renderDebtsActive);
+
+  function renderDebtsPaid(){
+    const container = $("debtsPaidList");
+    container.innerHTML = "";
+
+    if(!state.debts.paid.length){
+      const d = document.createElement("div");
+      d.style.color = "var(--muted)";
+      d.style.fontWeight = "900";
+      d.style.fontSize = "13px";
+      d.textContent = "Aún no hay deudas pagadas.";
+      container.appendChild(d);
+      return;
+    }
+
+    state.debts.paid.forEach(debt=>{
+      const row = document.createElement("div");
+      row.className = "paidCompact";
+
+      const left = document.createElement("div");
+      left.className = "left";
+
+      const name = document.createElement("div");
+      name.className = "name";
+      name.textContent = debt.entity || "Deuda pagada";
+
+      const small = document.createElement("div");
+      small.className = "small";
+      small.innerHTML = `<span>Total: ${fmtEUR(debt.total)}</span>`;
+
+      left.appendChild(name);
+      left.appendChild(small);
+
+      const right = document.createElement("div");
+      right.style.display = "flex";
+      right.style.gap = "8px";
+
+      const del = document.createElement("button");
+      del.className = "iconBtn danger";
+      del.textContent = "🗑️";
+      del.title = "Borrar";
+      del.addEventListener("click", ()=>{
+        const d = document.createElement("div");
+        d.textContent = "¿Seguro?";
+        openModal({
+          title:"Borrar deuda pagada",
+          bodyNode:d,
+          okText:"Borrar",
+          cancelText:"Cancelar",
+          onOk: ()=>{
+            state.debts.paid = state.debts.paid.filter(x => x.id !== debt.id);
+            saveState();
+            renderDebtsPaid();
+            renderDebtsHub();
+            return true;
+          }
+        });
+      });
+
+      right.appendChild(del);
+
+      row.appendChild(left);
+      row.appendChild(right);
+      container.appendChild(row);
+    });
+  }
+
+  /* ========= INIT ========= */
+  function renderAll(){
+    renderPresent();
+    renderSavings();
+    renderArchive();
+    renderForecast();
+    renderDebtsHub();
+  }
+
+  showPage("home");
+  renderAll();
+
+})();
+</script>
+</body>
+</html>
